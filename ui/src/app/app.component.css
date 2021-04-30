@@ -1,0 +1,13 @@
+.profilePic {
+  height: 50px;
+  width: 50px;
+}
+
+.pageTitle {
+  font-size: 24px;
+}
+
+.link {
+  color: #4299F0;
+  text-decoration: none;
+}
