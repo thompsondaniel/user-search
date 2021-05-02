@@ -4,13 +4,13 @@
     <div class="col-md-2 pageTitle">
       <b>GitHub User Search</b>
     </div>
-    <div class="col-md-10" style="text-align: center;">
+    <div class="col-md-10 center">
       <input [(ngModel)]="searchText" (keyup.Enter)="getResults(); isDirty" placeholder="Search for a user..." />
     </div>
     <hr>
    </div>
 
-   <div *ngIf="!isDirty">
+   <div *ngIf="!isDirty" class="center">
     <h3>Welcome! Enter a name or email to begin.</h3>
    </div>
 
@@ -26,19 +26,23 @@
           <th><b>Account Created</b></th>
           <th><b>Last Update</b></th>
         </tr>
-        <tr *ngFor="let user of users| paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalItems };">
+        <tr *ngFor="let user of users | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalItems };">
           <td ><img class="profilePic" src={{user.avatar_url}} /></td>
-          <td style="text-align: center;"><a class="link" href={{user.html_url}} target="_blank">{{user.login}}</a></td>
-          <td style="text-align: center;">{{user.location}}</td>
-          <td style="text-align: center;">{{user.name}}</td>
-          <td style="text-align: center;">{{user.email}}</td>
-          <td style="text-align: center;">{{user.public_repos}}</td>
-          <td style="text-align: center;">{{user.created_at}}</td>
-          <td style="text-align: center;">{{user.updated_at}}</td>
+          <td class="center"><a class="link" href={{user.html_url}} target="_blank">{{user.login}}</a></td>
+          <td class="center">{{user.location}}</td>
+          <td class="center">{{user.name}}</td>
+          <td class="center"><a class="link" href="mailto:{{user.email}}">{{user.email}}</a></td>
+          <td class="center">{{user.public_repos}}</td>
+          <td class="center">{{user.created_at | date: 'medium'}}</td>
+          <td class="center">{{user.updated_at | date: 'medium'}}</td>
         </tr>
       </table>
+      <hr />
+      <pagination-controls
+        style="text-align: right;"
+        (pageChange)="newPageChange($event)"
+        previousLabel="Back">
+      </pagination-controls>
     </div>
-
-    <pagination-controls style="text-align: center;" *ngIf="isDirty" (pageChange)="newPageChange($event)"></pagination-controls>
 
 </div>

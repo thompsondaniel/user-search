@@ -5,9 +5,14 @@
 
 .pageTitle {
   font-size: 24px;
+  padding-top: 20px;
 }
 
 .link {
   color: #4299F0;
   text-decoration: none;
+}
+
+.center {
+  text-align: center;
 }

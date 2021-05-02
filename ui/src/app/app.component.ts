@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubUserService } from 'src/services/github-user.service';
-import { Results } from './models/models';
 
 @Component({
   selector: 'app-root',

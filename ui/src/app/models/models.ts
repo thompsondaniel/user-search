@@ -23,8 +23,3 @@ export class Details {
   created_at: Date;
   updated_at: Date;
 }
-
-export class Results {
-  users: User[];
-  count: number;
-}
