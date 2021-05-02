@@ -1,24 +1,44 @@
  <div>
+
    <div class="row">
     <div class="col-md-2 pageTitle">
       <b>GitHub User Search</b>
     </div>
     <div class="col-md-10" style="text-align: center;">
-      <input [(ngModel)]="searchText" placeholder="Search for a user..." />
+      <input [(ngModel)]="searchText" (keyup.Enter)="getResults(); isDirty" placeholder="Search for a user..." />
     </div>
+    <hr>
    </div>
 
-  <table>
-    <tr>
-      <th></th>
-      <th><b>Login</b></th>
-    </tr>
-    <tr *ngFor="let user of users | async | filter: searchText | paginate: {itemsPerPage: 10, currentPage: page}; let i = index">
-      <td hidden>{{i}}</td>
-      <td><img class="profilePic" src={{user.avatar_url}} /></td>
-      <td style="text-align: center;"><a class="link" href={{user.html_url}}>{{ user.login }}</a></td>
-    </tr>
-  </table>
+   <div *ngIf="!isDirty">
+    <h3>Welcome! Enter a name or email to begin.</h3>
+   </div>
 
-  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    <div *ngIf="isDirty">
+      <table style="width: 100%;">
+        <tr>
+          <th></th>
+          <th><b>Username</b></th>
+          <th><b>Location</b></th>
+          <th><b>Name</b></th>
+          <th><b>Email</b></th>
+          <th><b>Public Repos</b></th>
+          <th><b>Account Created</b></th>
+          <th><b>Last Update</b></th>
+        </tr>
+        <tr *ngFor="let user of users.items | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: users.total_count };">
+          <td ><img class="profilePic" src={{user.avatar_url}} /></td>
+          <td style="text-align: center;">{{user.login}}</td>
+          <td style="text-align: center;"></td>
+          <td style="text-align: center;"></td>
+          <td style="text-align: center;"></td>
+          <td style="text-align: center;"></td>
+          <td style="text-align: center;"></td>
+          <td style="text-align: center;"></td>
+        </tr>
+      </table>
+    </div>
+
+    <pagination-controls style="text-align: center;" *ngIf="isDirty" (pageChange)="newPageChange($event)"></pagination-controls>
+
 </div>
