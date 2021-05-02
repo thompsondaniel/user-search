@@ -26,15 +26,15 @@
           <th><b>Account Created</b></th>
           <th><b>Last Update</b></th>
         </tr>
-        <tr *ngFor="let user of users.items | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: users.total_count };">
+        <tr *ngFor="let user of users| paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalItems };">
           <td ><img class="profilePic" src={{user.avatar_url}} /></td>
-          <td style="text-align: center;">{{user.login}}</td>
-          <td style="text-align: center;"></td>
-          <td style="text-align: center;"></td>
-          <td style="text-align: center;"></td>
-          <td style="text-align: center;"></td>
-          <td style="text-align: center;"></td>
-          <td style="text-align: center;"></td>
+          <td style="text-align: center;"><a class="link" href={{user.html_url}} target="_blank">{{user.login}}</a></td>
+          <td style="text-align: center;">{{user.location}}</td>
+          <td style="text-align: center;">{{user.name}}</td>
+          <td style="text-align: center;">{{user.email}}</td>
+          <td style="text-align: center;">{{user.public_repos}}</td>
+          <td style="text-align: center;">{{user.created_at}}</td>
+          <td style="text-align: center;">{{user.updated_at}}</td>
         </tr>
       </table>
     </div>

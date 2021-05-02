@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubUserService } from 'src/services/github-user.service';
+import { Results } from './models/models';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,11 @@ import { GithubUserService } from 'src/services/github-user.service';
 export class AppComponent implements OnInit {
 
   public users: any;
-  public userDetails: any;
   public searchText: string;
   public isDirty: boolean;
   public page: number;
   public pageSize: number;
+  public totalItems: number;
 
   constructor(
     private githubUserService: GithubUserService
@@ -39,27 +40,13 @@ export class AppComponent implements OnInit {
     return params;
   }
 
-  getResults() {
+   getResults() {
     const params = this.getParams(this.searchText, this.page, this.pageSize);
     this.isDirty = true;
     // tslint:disable-next-line: deprecation
-    this.githubUserService.getUsers(params).subscribe(user => {
-      console.log(user);
-      this.users = user;
-    },
-    error => {
-      console.log(error);
-    });
-  }
-
-  getDetails(username: string) {
-    // tslint:disable-next-line: deprecation
-    this.githubUserService.getUserDetails(username).subscribe(details => {
-      console.log(details);
-      this.userDetails = details;
-    },
-    error => {
-      console.log(error);
+    this.githubUserService.getUsers(params).then(results => {
+      this.users = results[0];
+      this.totalItems = results[1];
     });
   }
 
